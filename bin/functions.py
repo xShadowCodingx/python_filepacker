@@ -8,16 +8,12 @@ class Functions:
 
     def getDirectoryContents(self, directory):
         try:
-            allFiles = []
-            for dirpath, dirnames, filenames in os.walk(directory):
-                level = dirpath.replace(directory, '').count(os.sep)
-                indent = '  ' * level
-                print(f'{indent}{os.path.basename(dirpath)}/')
-                sub_indent = '  ' * (level + 1)
-                for f in filenames:
-                    print(f'{sub_indent}{f}')
-                    allFiles.append(f)
-            return allFiles
+            absFilePaths = []
+            for root, _, files in os.walk(directory):
+                for file in files:
+                    filePath = os.path.join(root, file)
+                    absFilePaths.append(filePath)
+            return absFilePaths
         except Exception as e:
             print(f"An error has occurred: {e}")
 
